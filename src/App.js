@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header';
+import Home from './components/Home';
+import Viewcart from './components/Viewcart';
+import { useState,createContext } from 'react';
+
+export const cartContext = createContext()
+
+const alerting=()=>{
+     alert("adkhv")
+}
 
 function App() {
+  const[cart,setCart] = useState([])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <cartContext.Provider value={{cart,setCart}}>
+      
+  <BrowserRouter>
+     <Header cart={cart}/>
+      <div className="container">
+        <Routes>
+          <Route path="/" element = {<Home  />} />
+          <Route path="/Cart" element = {<Viewcart  />} />
+          </Routes>
+      </div>
+      <h3 className='footer'><a href="https://github.com/imvinoth1820" target='blank'>Design by &copy;VinothKumar R 🚀</a></h3>
+      </BrowserRouter>
+ 
+    </cartContext.Provider>
   );
 }
 
